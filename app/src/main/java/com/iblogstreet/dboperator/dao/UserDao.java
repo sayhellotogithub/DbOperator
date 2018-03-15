@@ -13,19 +13,34 @@ public class UserDao extends BaseDao<User> {
 
     @Override
     public long insert(User entity) {
-//        //查到表中所有的用户记录
-//        List<User> list = query(new User());
-//        User where = null;
-//        if (null != list) {
-//            for (User user : list) {
-//                where = new User();
-//                where.setId(user.getId());
-//                user.setStatus(0);
-//                update(user, where);
-//            }
-//        }
-//        entity.setStatus(1);
+        //查到表中所有的用户记录
+        List<User> list = query(new User());
+        User where = null;
+        if (null != list) {
+            for (User user : list) {
+                where = new User();
+                where.setId(user.getId());
+                user.setStatus(0);
+                update(user, where);
+            }
+        }
+        entity.setStatus(1);
         return super.insert(entity);
+    }
+
+    public long update(User entity, User whereArgs) {
+        List<User> list = query(new User());
+        User where = null;
+        if (null != list) {
+            for (User user : list) {
+                where = new User();
+                where.setId(user.getId());
+                user.setStatus(0);
+                super.update(user, where);
+            }
+        }
+        entity.setStatus(1);
+        return super.update(entity, whereArgs);
     }
 
     /**
@@ -39,6 +54,13 @@ public class UserDao extends BaseDao<User> {
             return list.get(0);
         }
         return null;
+    }
+
+    public int getMaxId() {
+        List<User> list = query(new User());
+        if (list != null)
+            return list.size();
+        return 0;
     }
 }
 

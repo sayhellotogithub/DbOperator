@@ -4,6 +4,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
 import android.util.Log;
 
+import com.iblogstreet.dboperator.util.ConstantField;
+import com.iblogstreet.dboperator.util.FileUtil;
+
+import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +38,12 @@ public class BaseDaoFactory {
      * 数据路径
      */
     private String mDataBasePath;
+    private String mParentBasePath;
 
-    private BaseDaoFactory() {
-        mDataBasePath = Environment.getExternalStorageDirectory() + "/" + DB_DEFAULT_NAME;
+    protected BaseDaoFactory() {
+        mParentBasePath = Environment.getExternalStorageDirectory() + "/" + ConstantField.PACKAGE_NAME;
+        mDataBasePath = mParentBasePath + "/" + DB_DEFAULT_NAME;
+        FileUtil.createFileDir(new File(mParentBasePath));
         Log.e(TAG, "mDataBasePath" + mDataBasePath);
         sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase(mDataBasePath, null);
     }

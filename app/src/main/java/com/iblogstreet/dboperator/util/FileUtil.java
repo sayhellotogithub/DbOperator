@@ -1,4 +1,4 @@
-package com.example.jett.dn_sqliteframework.fileutil;
+package com.iblogstreet.dboperator.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,13 +6,16 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 
 /**
- * 文件操作
+ * 类描述：文件操作工具类
+ * 创建人：@Armyone
+ * 创建时间：2018/3/13
  */
 
 public class FileUtil {
 
     /**
      * 复制单个文件(可更名复制)
+     *
      * @param oldPathFile 准备复制的文件源
      * @param newPathFile 拷贝到新绝对路径带文件名(注：目录路径需带文件名)
      * @return
@@ -22,10 +25,9 @@ public class FileUtil {
 //            int bytesum = 0;
             int byteread = 0;
             File oldfile = new File(oldPathFile);
-            File newFile=new File(newPathFile);
-            File parentFile=newFile.getParentFile();
-            if(!parentFile.exists())
-            {
+            File newFile = new File(newPathFile);
+            File parentFile = newFile.getParentFile();
+            if (!parentFile.exists()) {
                 parentFile.mkdirs();
             }
             if (oldfile.exists()) { //文件存在时
@@ -40,6 +42,14 @@ public class FileUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void createFileDir(File dir) {
+        if (null != dir) {
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
         }
     }
 
